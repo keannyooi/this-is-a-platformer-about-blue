@@ -1,0 +1,140 @@
+[gd_scene load_steps=11 format=3 uid="uid://1y7xocnbndi8"]
+
+[ext_resource type="Script" path="res://util/loading_screen.gd" id="1_6nimg"]
+[ext_resource type="Texture2D" uid="uid://ci8iwama22a7f" path="res://assets/sprites/player_spritesheet.png" id="2_0htde"]
+[ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="3_3hrx1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k21ja"]
+atlas = ExtResource("2_0htde")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtbdf"]
+atlas = ExtResource("2_0htde")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yi3xr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k21ja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtbdf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="Animation" id="Animation_86vv5"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_x1g1m"]
+resource_name = "end_load"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0, 313.241, 336, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.8)
+}
+
+[sub_resource type="Animation" id="Animation_u06lm"]
+resource_name = "start_load"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.799361),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"loading_screen_has_full_coverage"],
+"method": &"emit_signal"
+}]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-336, -0.25, 0, 0, 285.319, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.8)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hxx0k"]
+_data = {
+"RESET": SubResource("Animation_86vv5"),
+"end_load": SubResource("Animation_x1g1m"),
+"start_load": SubResource("Animation_u06lm")
+}
+
+[node name="LoadingScreen" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_6nimg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 336.0
+offset_bottom = 224.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MarginContainer/CenterContainer/VBoxContainer/Control"]
+modulate = Color(100, 100, 100, 1)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_yi3xr")
+autoplay = "default"
+frame_progress = 0.165491
+offset = Vector2(0, -5)
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_3hrx1")
+theme_override_font_sizes/font_size = 32
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hxx0k")
+}
+autoplay = "start_load"

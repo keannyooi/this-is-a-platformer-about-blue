@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://yk7ck8pvav6o"]
+
+[ext_resource type="Script" path="res://entities/win_area.gd" id="1_uclmn"]
+[ext_resource type="Texture2D" uid="uid://bg1375ow8upqd" path="res://assets/sprites/win_area.png" id="1_wvwgv"]
+[ext_resource type="Texture2D" uid="uid://dkh8810j4l7ax" path="res://assets/sprites/hitting_win_area.png" id="2_cxth1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5glm"]
+size = Vector2(16, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d3da"]
+atlas = ExtResource("2_cxth1")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7wv8"]
+atlas = ExtResource("2_cxth1")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyf8d"]
+atlas = ExtResource("2_cxth1")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akycf"]
+atlas = ExtResource("2_cxth1")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_076e1"]
+atlas = ExtResource("2_cxth1")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ptxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6d3da")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7wv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyf8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akycf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_076e1")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[node name="WinArea" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_uclmn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("1_wvwgv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 14)
+shape = SubResource("RectangleShape2D_j5glm")
+
+[node name="CheckpointGradient" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_4ptxj")
+animation = &"hit"
+frame = 3
+frame_progress = 1.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

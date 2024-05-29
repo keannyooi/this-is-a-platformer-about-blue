@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4hdfq0nwufg2"]
+
+[ext_resource type="Script" path="res://util/dialogs/dialogplayer.gd" id="1_js7w6"]
+[ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="2_bonip"]
+
+[sub_resource type="Animation" id="Animation_bu8ul"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DialogSection:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7pgad"]
+resource_name = "text_fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DialogSection:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r63nk"]
+_data = {
+"RESET": SubResource("Animation_bu8ul"),
+"text_fade": SubResource("Animation_7pgad")
+}
+
+[node name="DialogPlayer" type="CanvasLayer"]
+script = ExtResource("1_js7w6")
+
+[node name="DialogSection" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_bonip")
+text = "sample text"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="DialogTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r63nk")
+}
+
+[connection signal="timeout" from="DialogTimer" to="." method="_on_dialog_timer_timeout"]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8lpuwfgqi0p4"]
+
+[ext_resource type="Script" path="res://util/ui.gd" id="1_t656y"]
+[ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="2_c7sa8"]
+[ext_resource type="Texture2D" uid="uid://bajfcivbma4b1" path="res://assets/sprites/batteryempty.png" id="3_1vgwy"]
+[ext_resource type="Texture2D" uid="uid://xhgocungx1wa" path="res://assets/sprites/batteryfull.png" id="4_yxro4"]
+[ext_resource type="FontFile" uid="uid://cfjynyb05tw4p" path="res://assets/fonts/m3x6.ttf" id="5_oj4ng"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_t656y")
+
+[node name="TimerLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 3.0
+offset_top = 29.0
+offset_right = 70.0
+offset_bottom = 61.0
+theme = ExtResource("2_c7sa8")
+theme_override_font_sizes/font_size = 28
+text = "0:00.000"
+
+[node name="PercentageLabel" type="Label" parent="."]
+unique_name_in_owner = true
+z_index = 1
+offset_left = 12.0
+offset_right = 63.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_oj4ng")
+theme_override_font_sizes/font_size = 31
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnergyBar" type="TextureProgressBar" parent="."]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 23.0
+offset_bottom = 11.0
+scale = Vector2(3, 3)
+fill_mode = 1
+texture_under = ExtResource("3_1vgwy")
+texture_progress = ExtResource("4_yxro4")
+texture_progress_offset = Vector2(3, 2)

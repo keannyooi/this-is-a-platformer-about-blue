@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b45jfhmer1vsa"]
+
+[ext_resource type="FontFile" uid="uid://dpyl50dvh0cgk" path="res://assets/fonts/Silver.ttf" id="1_6eoen"]
+[ext_resource type="Texture2D" uid="uid://mddt0jv0ch8n" path="res://assets/sprites/ui_focus.png" id="2_0rncy"]
+[ext_resource type="Texture2D" uid="uid://kc56620y0sr6" path="res://assets/sprites/ui_selection.png" id="2_roi7k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_brcq6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m3ot3"]
+texture = ExtResource("2_0rncy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3atna"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_anu5m"]
+texture = ExtResource("2_roi7k")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqnsa"]
+
+[resource]
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_6eoen")
+Button/styles/disabled = SubResource("StyleBoxEmpty_brcq6")
+Button/styles/focus = SubResource("StyleBoxTexture_m3ot3")
+Button/styles/normal = SubResource("StyleBoxEmpty_3atna")
+Button/styles/pressed = SubResource("StyleBoxTexture_anu5m")
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_6eoen")
+RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/bold_font = ExtResource("1_6eoen")
+RichTextLabel/fonts/italics_font = ExtResource("1_6eoen")
+RichTextLabel/fonts/normal_font = ExtResource("1_6eoen")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_vqnsa")

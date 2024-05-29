@@ -1,0 +1,160 @@
+[gd_scene load_steps=18 format=3 uid="uid://by1g6pxt13g7r"]
+
+[ext_resource type="Texture2D" uid="uid://ci8iwama22a7f" path="res://assets/sprites/player_spritesheet.png" id="1_5quof"]
+[ext_resource type="Script" path="res://entities/player.gd" id="1_yenk1"]
+[ext_resource type="Texture2D" uid="uid://bajfcivbma4b1" path="res://assets/sprites/batteryempty.png" id="3_uiyg5"]
+[ext_resource type="Texture2D" uid="uid://xhgocungx1wa" path="res://assets/sprites/batteryfull.png" id="4_mo34s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdwr4"]
+atlas = ExtResource("1_5quof")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3xid"]
+atlas = ExtResource("1_5quof")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi30o"]
+atlas = ExtResource("1_5quof")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o8bo"]
+atlas = ExtResource("1_5quof")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clbyk"]
+atlas = ExtResource("1_5quof")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_soeh7"]
+atlas = ExtResource("1_5quof")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmvjn"]
+atlas = ExtResource("1_5quof")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lulog"]
+atlas = ExtResource("1_5quof")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvhyo"]
+atlas = ExtResource("1_5quof")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1xkv"]
+atlas = ExtResource("1_5quof")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qomlh"]
+atlas = ExtResource("1_5quof")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8rfj1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdwr4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3xid")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi30o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6o8bo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clbyk")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_soeh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmvjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lulog")
+}],
+"loop": false,
+"name": &"float",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvhyo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1xkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qomlh")
+}],
+"loop": true,
+"name": &"move",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0d57"]
+size = Vector2(10, 12)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+floor_constant_speed = true
+safe_margin = 0.1
+script = ExtResource("1_yenk1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -50)
+process_callback = 0
+limit_left = 0
+limit_bottom = 224
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+editor_draw_limits = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_8rfj1")
+animation = &"float"
+
+[node name="EnergyBar" type="TextureProgressBar" parent="AnimatedSprite2D"]
+z_index = 2
+offset_left = -10.0
+offset_top = -16.0
+offset_right = 10.0
+fill_mode = 1
+texture_under = ExtResource("3_uiyg5")
+texture_progress = ExtResource("4_mo34s")
+texture_progress_offset = Vector2(3, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_y0d57")
+
+[node name="FloatAnimationTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="RechargeCooldownTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="FloatAnimationTimer" to="." method="_on_float_animation_timer_timeout"]

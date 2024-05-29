@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://bpvaeyrm22x45"]
+
+[ext_resource type="Script" path="res://levels/level.gd" id="1_jbds4"]
+[ext_resource type="Shader" path="res://assets/vignette.gdshader" id="2_58tmk"]
+[ext_resource type="PackedScene" uid="uid://c4hdfq0nwufg2" path="res://util/dialogs/dialog_player.tscn" id="3_0dym5"]
+[ext_resource type="PackedScene" uid="uid://b8lpuwfgqi0p4" path="res://util/ui.tscn" id="4_leecu"]
+[ext_resource type="PackedScene" uid="uid://s6gqeaiumo07" path="res://entities/tile_map.tscn" id="5_o6cr7"]
+[ext_resource type="PackedScene" uid="uid://by1g6pxt13g7r" path="res://entities/player.tscn" id="6_a36ee"]
+[ext_resource type="PackedScene" uid="uid://yk7ck8pvav6o" path="res://entities/win_area.tscn" id="7_022il"]
+[ext_resource type="PackedScene" uid="uid://p26bvejpgmuc" path="res://entities/battery_collectible.tscn" id="8_aqcr3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ob0p2"]
+shader = ExtResource("2_58tmk")
+shader_parameter/alpha = 0.7
+shader_parameter/inner_radius = 0.0
+shader_parameter/outer_radius = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v3wdi"]
+size = Vector2(1528, 144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8ovy"]
+size = Vector2(16, 192)
+
+[node name="Level4" type="Node2D"]
+editor_description = "attributions memorandum:
+Silver (pixel font) by Poppy Works
+https://poppyworks.itch.io/silver
+m3x6 (pixel font) by Daniel Linssen
+https://managore.itch.io/m3x6"
+script = ExtResource("1_jbds4")
+level_id = 4
+level_edge = Vector2i(2816, -976)
+
+[node name="Vignette" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Vignette"]
+material = SubResource("ShaderMaterial_ob0p2")
+offset_right = 336.0
+offset_bottom = 224.0
+
+[node name="DialogPlayer" parent="." instance=ExtResource("3_0dym5")]
+
+[node name="UI" parent="." instance=ExtResource("4_leecu")]
+
+[node name="TileMap" parent="." instance=ExtResource("5_o6cr7")]
+z_index = 1
+position = Vector2(0, -32)
+layer_0/z_index = 1
+layer_0/tile_data = PackedInt32Array(720895, 1, 6, 786431, 1, 6, 851967, 1, 6, 917503, 524289, 6, 851968, 131073, 5, 851969, 131073, 5, 851970, 131073, 5, 851971, 196609, 5, 917507, 196609, 6, 983043, 196609, 7, 983042, 131073, 7, 983041, 131073, 7, 983040, 131073, 7, 983039, 65537, 6, 1048575, 65537, 7, 917504, 131073, 6, 917505, 131073, 6, 917506, 131073, 6, 655359, 1, 6, 589823, 1, 6, 524287, 1, 6, 458751, 1, 6, 327679, 1, 6, 393215, 1, 6, 131073, 196609, 4, 131072, 393217, 4, 196607, 65537, 5, 262143, 393217, 6, 196608, 196609, 7)
+layer_2/y_sort_origin = 1
+
+[node name="Player" parent="." instance=ExtResource("6_a36ee")]
+z_index = 2
+position = Vector2(32, 168)
+
+[node name="OutOfBoundsArea" type="Area2D" parent="."]
+position = Vector2(8, 248)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutOfBoundsArea"]
+position = Vector2(1688, 64)
+shape = SubResource("RectangleShape2D_v3wdi")
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="WinArea" parent="Checkpoints" instance=ExtResource("7_022il")]
+z_index = 1
+position = Vector2(-16, -16)
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="BatteryCollectible" parent="Collectibles" instance=ExtResource("8_aqcr3")]
+position = Vector2(2304, -560)
+
+[node name="NextAreaTeleport" type="Area2D" parent="."]
+position = Vector2(2824, -880)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextAreaTeleport"]
+shape = SubResource("RectangleShape2D_j8ovy")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 290.0
+offset_bottom = 121.0
+text = "sorry, this game is not finished yet
+pls come back later"
+
+[connection signal="body_entered" from="OutOfBoundsArea" to="." method="_on_out_of_bounds_area_body_entered"]
+[connection signal="body_entered" from="NextAreaTeleport" to="." method="_on_next_area_teleport_body_entered"]

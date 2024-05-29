@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://darm7f3g07xdg"]
+
+[ext_resource type="FontFile" uid="uid://cfjynyb05tw4p" path="res://assets/fonts/m3x6.ttf" id="1_ngiku"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th1lx"]
+
+[node name="MiniPopupArea" type="Area2D"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_th1lx")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_ngiku")
+text = "test label"

@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://lg3tfkl2hk5u"]
+
+[ext_resource type="Script" path="res://autoloads/AudioManager.gd" id="1_o47u1"]
+[ext_resource type="AudioStream" uid="uid://dei76vtqos8im" path="res://assets/sfx/batterycollectible_pickup.ogg" id="2_omx2f"]
+[ext_resource type="AudioStream" uid="uid://dwhl1mrpdb4nu" path="res://assets/sfx/ui_switchselection.ogg" id="2_qmeo0"]
+[ext_resource type="AudioStream" uid="uid://cke4ccp8q4uwu" path="res://assets/sfx/checkpoint.ogg" id="3_b3emq"]
+[ext_resource type="AudioStream" uid="uid://bbl17v2c4uhlb" path="res://assets/sfx/menu_tvshutdown.ogg" id="3_t20vr"]
+[ext_resource type="AudioStream" uid="uid://dv40ybj6x4x4r" path="res://assets/sfx/player_floating.ogg" id="3_vdc62"]
+[ext_resource type="AudioStream" uid="uid://ddtjup8giu74d" path="res://assets/sfx/player_landing_soft.ogg" id="4_68htn"]
+[ext_resource type="AudioStream" uid="uid://bvbtjo4qj6yq" path="res://assets/sfx/menu_tvturnon.ogg" id="4_njk8w"]
+[ext_resource type="AudioStream" uid="uid://lsysqo1355q4" path="res://assets/sfx/player_landing_metallic.ogg" id="5_v5i83"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_o47u1")
+
+[node name="Background" type="Node" parent="."]
+
+[node name="Gameplay" type="Node" parent="."]
+
+[node name="BatteryCollectedSFX" type="AudioStreamPlayer" parent="Gameplay"]
+stream = ExtResource("2_omx2f")
+bus = &"SFX"
+
+[node name="CheckpointSFX" type="AudioStreamPlayer" parent="Gameplay"]
+stream = ExtResource("3_b3emq")
+bus = &"SFX"
+
+[node name="PlayerFloatingSFX" type="AudioStreamPlayer" parent="Gameplay"]
+stream = ExtResource("3_vdc62")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="PlayerLandingSFXs" type="Node" parent="Gameplay"]
+
+[node name="SoftLandingSFX" type="AudioStreamPlayer" parent="Gameplay/PlayerLandingSFXs"]
+stream = ExtResource("4_68htn")
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="MetallicLandingSFX" type="AudioStreamPlayer" parent="Gameplay/PlayerLandingSFXs"]
+stream = ExtResource("5_v5i83")
+max_polyphony = 2
+bus = &"SFX"
+
+[node name="UI" type="Node" parent="."]
+
+[node name="ButtonHoverSFX" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("2_qmeo0")
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="TVShutdownSFX" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("3_t20vr")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="TVTurnonSFX" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("4_njk8w")
+volume_db = -5.0
+bus = &"SFX"

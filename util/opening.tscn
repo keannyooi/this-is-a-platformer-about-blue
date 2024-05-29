@@ -1,0 +1,198 @@
+[gd_scene load_steps=10 format=3 uid="uid://d1p44wswkps46"]
+
+[ext_resource type="Script" path="res://util/opening.gd" id="1_8fsmf"]
+[ext_resource type="Texture2D" uid="uid://cqddisagd1uxa" path="res://assets/sprites/b+studios.png" id="1_wawu3"]
+[ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="2_ioan6"]
+[ext_resource type="PackedScene" uid="uid://c4hdfq0nwufg2" path="res://util/dialogs/dialog_player.tscn" id="2_jwbs0"]
+[ext_resource type="AudioStream" uid="uid://bs6akv1ik806e" path="res://assets/sfx/opening_ambience.ogg" id="5_vvyf5"]
+
+[sub_resource type="Animation" id="Animation_tmkmn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/LogoContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OpeningAmbience:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_0xak4"]
+resource_name = "opening"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/LogoContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DialogPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["intro"],
+"method": &"start_dialog"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OpeningAmbience")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OpeningAmbience:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-30.0, -30.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jm1wc"]
+resource_name = "transition_menu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OpeningAmbience:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -30.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qdjoa"]
+_data = {
+"RESET": SubResource("Animation_tmkmn"),
+"opening": SubResource("Animation_0xak4"),
+"transition_menu": SubResource("Animation_jm1wc")
+}
+
+[node name="Opening" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8fsmf")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+offset_right = 128.0
+offset_bottom = 21.0
+theme = ExtResource("2_ioan6")
+text = " Press [Space] or [Enter] to skip intro"
+
+[node name="DialogPlayer" parent="." instance=ExtResource("2_jwbs0")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qdjoa")
+}
+autoplay = "opening"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LogoContainer" type="CenterContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="ColorRect/LogoContainer"]
+layout_mode = 2
+texture = ExtResource("1_wawu3")
+
+[node name="OpeningAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vvyf5")
+bus = &"BGM"
