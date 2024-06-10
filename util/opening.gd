@@ -5,8 +5,6 @@ class_name Opening
 @onready var dialog_player: DialogPlayer = $DialogPlayer
 @onready var opening_ambience: AudioStreamPlayer = $OpeningAmbience
 
-var menu_scene = load("res://util/menu.tscn")
-
 
 func _ready() -> void:
 	Events.dialog_complete.connect(change_scene_to_menu)
@@ -23,5 +21,5 @@ func change_scene_to_menu() -> void:
 	animation_player.play("transition_menu")
 	await animation_player.animation_finished
 	
-	get_tree().change_scene_to_packed(menu_scene)
+	get_tree().change_scene_to_file("res://util/menu.tscn")
 	

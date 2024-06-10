@@ -1,5 +1,6 @@
 extends CanvasLayer
 class_name PauseMenu
+enum { PAUSE_TAB, CONFIRM_TAB }
 
 @onready var confirm_return_button: Button = %ConfirmReturnButton
 @onready var continue_button: Button = %ContinueButton
@@ -7,8 +8,6 @@ class_name PauseMenu
 @onready var return_button: Button = %ReturnButton
 @onready var tab_container: TabContainer = $TabContainer
 @onready var transition_sprite: AnimatedSprite2D = %TransitionSprite
-
-enum { PAUSE_TAB, CONFIRM_TAB }
 
 
 func _ready() -> void:
@@ -40,6 +39,8 @@ func _on_return_button_pressed() -> void:
 	
 
 func _on_confirm_return_button_pressed() -> void:
+	AudioManager.player_floating_sfx.stop()
+	
 	transition_sprite.show()
 	transition_sprite.play("transition_out")
 	AudioManager.tv_shutdown_sfx.play()

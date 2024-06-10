@@ -1,7 +1,10 @@
 extends Node2D
+class_name Level
+enum LevelCompleteDirection { LEFT, RIGHT, UP, DOWN }
 
 @export var level_id: int
 @export var level_edge := Vector2i(10000, -10000)
+@export var level_complete_direction: LevelCompleteDirection
 
 @onready var dialog_player: DialogPlayer = $DialogPlayer
 @onready var player: Player = $Player
@@ -10,10 +13,10 @@ extends Node2D
 
 var start_msec: int
 var last_checkpoint: Dictionary = {
-	"name": "WinArea0",
+	"id": 0.0,
 	"position": Vector2i(32, 168)
 }
-var level_completed: bool = false
+var is_level_completed: bool = false
 
 func _ready() -> void:
 	start_msec = Time.get_ticks_msec()
@@ -23,42 +26,47 @@ func _ready() -> void:
 	Events.checkpoint_reached.connect(checkpoint_reached)
 	Events.battery_collected.connect(battery_collected)
 	
-	# player.position = $Checkpoints/WinArea17.position
+	# player.position = $Checkpoints/WinArea9.position
 	
 
 func _process(_delta: float) -> void:
-	if level_completed == false && player.recharge_cooldown_timer.time_left == 0.0:
-		ui.update_energy_bar(player.energy)
-		player.update_energy_bar()
+	if not is_level_completed:
+		if player.recharge_cooldown_timer.time_left == 0.0:
+			ui.update_energy_bar(player.energy)
+			player.update_energy_bar()
+		
 		ui.update_timer(Time.get_ticks_msec() - start_msec)
 	
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("restart") and not event.is_echo():
+func _physics_process(delta: float) -> void:
+	if is_level_completed:
+		player.force_movement(level_complete_direction, delta)
+	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if (event.is_action_pressed("restart") and not event.is_echo()
+	and not is_level_completed):
 		recharge_player_energy()
 		respawn()
 	
 
 func checkpoint_reached(checkpoint: Checkpoint) -> void:
-	var checkpoint_name = String(checkpoint.get_name())
-	if checkpoint_name < last_checkpoint.name: return
-	
 	recharge_player_energy()
-	if checkpoint_name == last_checkpoint.name: return
+	if checkpoint.id <= last_checkpoint.id: return
 	
-	last_checkpoint.name = checkpoint_name
+	last_checkpoint.id = checkpoint.id
 	last_checkpoint.position = checkpoint.position
 	
-	match checkpoint_name:
-		"WinArea1":
+	match checkpoint.id:
+		1.0:
 			dialog_player.start_dialog("section_1")
-		"WinArea6":
+		5.0:
 			dialog_player.start_dialog("section_2")
-		"WinArea10":
+		10.0:
 			dialog_player.start_dialog("section_3")
-		"WinArea14":
+		15.0:
 			dialog_player.start_dialog("section_4")
-		"WinArea17":
+		17.0:
 			dialog_player.start_dialog("section_5")
 		_:
 			pass
@@ -76,7 +84,7 @@ func _on_out_of_bounds_area_body_entered(_body: Player) -> void:
 
 func recharge_player_energy() -> void:
 	player.recharge_energy()
-	ui.recharge_energy_bar()
+	ui.display_energy_recharge()
 	
 
 func respawn() -> void:
@@ -87,7 +95,10 @@ func respawn() -> void:
 
 func _on_next_area_teleport_body_entered(_body: Player) -> void:
 	print_debug("level complete!")
-	level_completed = true
+	is_level_completed = true
+	Events.level_complete.emit(level_complete_direction)
+	
+	await Events.player_left_screen_after_level_complete
 	
 	if level_id > 0:
 		LoadManager.load_scene("res://levels/level_%d.tscn" % (level_id + 1))

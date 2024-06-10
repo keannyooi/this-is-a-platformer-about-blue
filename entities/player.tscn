@@ -117,6 +117,7 @@ size = Vector2(10, 12)
 collision_layer = 2
 collision_mask = 5
 floor_constant_speed = true
+floor_max_angle = 1.0821
 safe_margin = 0.1
 script = ExtResource("1_yenk1")
 
@@ -136,6 +137,7 @@ sprite_frames = SubResource("SpriteFrames_8rfj1")
 animation = &"float"
 
 [node name="EnergyBar" type="TextureProgressBar" parent="AnimatedSprite2D"]
+modulate = Color(0.101961, 1, 0, 1)
 z_index = 2
 offset_left = -10.0
 offset_top = -16.0
@@ -157,4 +159,9 @@ autostart = true
 wait_time = 0.15
 one_shot = true
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -3)
+scale = Vector2(1, 1.3)
+
 [connection signal="timeout" from="FloatAnimationTimer" to="." method="_on_float_animation_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

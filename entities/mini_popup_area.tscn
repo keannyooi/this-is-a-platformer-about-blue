@@ -1,18 +1,92 @@
-[gd_scene load_steps=3 format=3 uid="uid://darm7f3g07xdg"]
+[gd_scene load_steps=6 format=3 uid="uid://darm7f3g07xdg"]
 
 [ext_resource type="FontFile" uid="uid://cfjynyb05tw4p" path="res://assets/fonts/m3x6.ttf" id="1_ngiku"]
+[ext_resource type="Script" path="res://entities/mini_popup_area.gd" id="1_rig5r"]
+[ext_resource type="Texture2D" uid="uid://bqvarounyfqis" path="res://assets/sprites/ninepatch_panel.png" id="1_t2r75"]
+[ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="3_iln0h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_th1lx"]
+[sub_resource type="LabelSettings" id="LabelSettings_cwvnm"]
+line_spacing = -2.0
 
-[node name="MiniPopupArea" type="Area2D"]
+[node name="MiniPopup" type="Area2D"]
 collision_mask = 2
+script = ExtResource("1_rig5r")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_th1lx")
-
-[node name="Label" type="Label" parent="."]
+[node name="Popup" type="VBoxContainer" parent="."]
 visible = false
-offset_right = 40.0
-offset_bottom = 23.0
+z_index = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -80.0
+offset_right = 49.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup"]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Popup/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_t2r75")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="PopupLabel" type="Label" parent="Popup/MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("1_ngiku")
-text = "test label"
+theme_override_font_sizes/font_size = 16
+text = "placeholder text"
+label_settings = SubResource("LabelSettings_cwvnm")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+visible_characters_behavior = 1
+
+[node name="HintLabel2" type="Label" parent="Popup"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 2
+theme = ExtResource("3_iln0h")
+theme_override_fonts/font = ExtResource("1_ngiku")
+text = "[Q] Close"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HintLabel" type="Label" parent="."]
+unique_name_in_owner = true
+z_index = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -17.0
+offset_right = 40.0
+grow_vertical = 0
+theme = ExtResource("3_iln0h")
+theme_override_fonts/font = ExtResource("1_ngiku")
+text = "[Q]
+"
+
+[node name="ScrollSpeedTimer" type="Timer" parent="."]
+wait_time = 0.04
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="ScrollSpeedTimer" to="." method="_on_scroll_speed_timer_timeout"]

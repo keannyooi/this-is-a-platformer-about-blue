@@ -8,7 +8,7 @@ var loading_screen = load(loading_screen_path)
 var loaded_resource: PackedScene
 var scene_path: String
 var progress: Array = []
-var use_subthreads: bool = false
+var use_subthreads: bool = true
 
 func load_scene(path: String) -> void:
 	scene_path = path

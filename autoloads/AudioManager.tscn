@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://lg3tfkl2hk5u"]
+[gd_scene load_steps=11 format=3 uid="uid://lg3tfkl2hk5u"]
 
 [ext_resource type="Script" path="res://autoloads/AudioManager.gd" id="1_o47u1"]
 [ext_resource type="AudioStream" uid="uid://dei76vtqos8im" path="res://assets/sfx/batterycollectible_pickup.ogg" id="2_omx2f"]
 [ext_resource type="AudioStream" uid="uid://dwhl1mrpdb4nu" path="res://assets/sfx/ui_switchselection.ogg" id="2_qmeo0"]
 [ext_resource type="AudioStream" uid="uid://cke4ccp8q4uwu" path="res://assets/sfx/checkpoint.ogg" id="3_b3emq"]
+[ext_resource type="AudioStream" uid="uid://cq05n23oh80kw" path="res://assets/sfx/popup_scrolltext.ogg" id="3_myify"]
 [ext_resource type="AudioStream" uid="uid://bbl17v2c4uhlb" path="res://assets/sfx/menu_tvshutdown.ogg" id="3_t20vr"]
 [ext_resource type="AudioStream" uid="uid://dv40ybj6x4x4r" path="res://assets/sfx/player_floating.ogg" id="3_vdc62"]
 [ext_resource type="AudioStream" uid="uid://ddtjup8giu74d" path="res://assets/sfx/player_landing_soft.ogg" id="4_68htn"]
@@ -19,6 +20,11 @@ script = ExtResource("1_o47u1")
 
 [node name="BatteryCollectedSFX" type="AudioStreamPlayer" parent="Gameplay"]
 stream = ExtResource("2_omx2f")
+bus = &"SFX"
+
+[node name="PopupScrollTextSFX" type="AudioStreamPlayer" parent="Gameplay"]
+stream = ExtResource("3_myify")
+max_polyphony = 5
 bus = &"SFX"
 
 [node name="CheckpointSFX" type="AudioStreamPlayer" parent="Gameplay"]

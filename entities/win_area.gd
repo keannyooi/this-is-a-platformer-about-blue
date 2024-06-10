@@ -1,6 +1,8 @@
 extends Area2D
 class_name Checkpoint
 
+@export var id: float
+
 @onready var checkpoint_gradient: AnimatedSprite2D = $CheckpointGradient
 
 

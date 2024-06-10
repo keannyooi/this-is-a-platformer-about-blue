@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="this is a platformer about blue"
-config/version="0.0.0"
+config/version="0.1.1"
 run/main_scene="res://util/opening.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
+config/main_run_args="--verbose"
 
 [autoload]
 
@@ -32,6 +34,15 @@ window/size/always_on_top=true
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+
+[editor]
+
+run/main_run_args="--verbose"
+
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
 
 [input]
 

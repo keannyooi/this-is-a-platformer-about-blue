@@ -7,6 +7,7 @@ extends Node
 @onready var checkpoint_sfx: AudioStreamPlayer = $Gameplay/CheckpointSFX
 @onready var player_floating_sfx: AudioStreamPlayer = $Gameplay/PlayerFloatingSFX
 @onready var player_landing_sfxs: Array = $Gameplay/PlayerLandingSFXs.get_children()
+@onready var popup_scroll_text_sfx: AudioStreamPlayer = $Gameplay/PopupScrollTextSFX
 # ui
 @onready var button_hover_sfx: AudioStreamPlayer = $UI/ButtonHoverSFX
 @onready var tv_shutdown_sfx: AudioStreamPlayer = $UI/TVShutdownSFX
@@ -30,9 +31,11 @@ func update_landing_sfx(tilemap: TileMap, player: Player):
 	if not floor_tile_data and not ceiling_tile_data: return
 	else:
 		if floor_tile_data:
-			landing_sfx_index = landing_sfx_dict[floor_tile_data.terrain]
+			var terrainId: int = absi(floor_tile_data.terrain)
+			landing_sfx_index = landing_sfx_dict[terrainId]
 		if ceiling_tile_data:
-			ceiling_sfx_index = landing_sfx_dict[ceiling_tile_data.terrain]
+			var terrainId: int = absi(ceiling_tile_data.terrain)
+			ceiling_sfx_index = landing_sfx_dict[terrainId]
 	
 	#player_landing_sfxs[landing_sfx_index].volume_db = remap(player.velocity.y, 0, 100, -20, 0)
 	#player_landing_sfxs[landing_sfx_index].volume_db = clampf(player_landing_sfxs[landing_sfx_index].volume_db, -20, 0)
