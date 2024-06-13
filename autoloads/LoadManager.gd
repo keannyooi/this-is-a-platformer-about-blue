@@ -1,7 +1,7 @@
 extends Node
 
 signal progress_changed(progress: Array)
-signal load_complete
+signal load_complete()
 
 var loading_screen_path: String = "res://util/loading_screen.tscn"
 var loading_screen = load(loading_screen_path)

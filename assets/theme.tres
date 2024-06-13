@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b45jfhmer1vsa"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://b45jfhmer1vsa"]
 
 [ext_resource type="FontFile" uid="uid://dpyl50dvh0cgk" path="res://assets/fonts/Silver.ttf" id="1_6eoen"]
 [ext_resource type="Texture2D" uid="uid://mddt0jv0ch8n" path="res://assets/sprites/ui_focus.png" id="2_0rncy"]
@@ -8,19 +8,55 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m3ot3"]
 texture = ExtResource("2_0rncy")
+texture_margin_left = 12.0
+texture_margin_right = 12.0
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+axis_stretch_vertical = 1
+draw_center = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xg6nq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3atna"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_anu5m"]
 texture = ExtResource("2_roi7k")
+texture_margin_left = 12.0
+texture_margin_right = 12.0
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+axis_stretch_vertical = 1
+draw_center = false
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqnsa"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_hfe0k"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+color = Color(1, 1, 1, 1)
+thickness = 3
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_5okbq"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+color = Color(1, 1, 1, 1)
+thickness = 3
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_c1nuf"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y7ocp"]
+content_margin_left = 5.0
+content_margin_right = 5.0
 
 [resource]
 Button/font_sizes/font_size = 24
 Button/fonts/font = ExtResource("1_6eoen")
 Button/styles/disabled = SubResource("StyleBoxEmpty_brcq6")
 Button/styles/focus = SubResource("StyleBoxTexture_m3ot3")
+Button/styles/hover = SubResource("StyleBoxEmpty_xg6nq")
 Button/styles/normal = SubResource("StyleBoxEmpty_3atna")
 Button/styles/pressed = SubResource("StyleBoxTexture_anu5m")
 Label/font_sizes/font_size = 16
@@ -30,4 +66,10 @@ RichTextLabel/font_sizes/normal_font_size = 32
 RichTextLabel/fonts/bold_font = ExtResource("1_6eoen")
 RichTextLabel/fonts/italics_font = ExtResource("1_6eoen")
 RichTextLabel/fonts/normal_font = ExtResource("1_6eoen")
+TabContainer/font_sizes/font_size = 16
+TabContainer/fonts/font = ExtResource("1_6eoen")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_vqnsa")
+TabContainer/styles/tab_focus = SubResource("StyleBoxLine_hfe0k")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxLine_5okbq")
+TabContainer/styles/tab_selected = SubResource("StyleBoxLine_c1nuf")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxEmpty_y7ocp")

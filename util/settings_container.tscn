@@ -1,0 +1,123 @@
+[gd_scene load_steps=5 format=3 uid="uid://rv0thp4qvv0d"]
+
+[ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="1_kvsg5"]
+[ext_resource type="Script" path="res://util/settings_container.gd" id="2_4ck2k"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_p76ua"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_xyqjx"]
+events = [SubResource("InputEventAction_p76ua")]
+
+[node name="SettingsContainer" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_kvsg5")
+script = ExtResource("2_4ck2k")
+
+[node name="Sections" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+tab_alignment = 1
+
+[node name="Audio" type="VBoxContainer" parent="Sections"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Sections/Audio"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VolumeSection" type="HBoxContainer" parent="Sections/Audio"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="Sections/Audio/VolumeSection"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 2
+
+[node name="Label" type="Label" parent="Sections/Audio/VolumeSection/Labels"]
+layout_mode = 2
+text = "Background"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Sections/Audio/VolumeSection/Labels"]
+layout_mode = 2
+text = "Sound Effects"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Sliders" type="VBoxContainer" parent="Sections/Audio/VolumeSection"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="BGMVolumeSlider" type="HScrollBar" parent="Sections/Audio/VolumeSection/Sliders"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 2
+max_value = 1.0
+custom_step = 0.1
+
+[node name="SFXVolumeSlider" type="HScrollBar" parent="Sections/Audio/VolumeSection/Sliders"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 2
+max_value = 1.0
+custom_step = 0.1
+
+[node name="Gameplay" type="VBoxContainer" parent="Sections"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="Sections/Gameplay"]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "Speedrun Timer"
+
+[node name="Controls" type="MarginContainer" parent="Sections"]
+visible = false
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ReturnButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_xyqjx")
+shortcut_in_tooltip = false
+text = "Back"
+
+[node name="SliderDebounceTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="value_changed" from="Sections/Audio/VolumeSection/Sliders/BGMVolumeSlider" to="." method="_on_bgm_volume_slider_value_changed"]
+[connection signal="value_changed" from="Sections/Audio/VolumeSection/Sliders/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

@@ -1,7 +1,7 @@
 extends CanvasLayer
 class_name LoadingScreen
 
-signal loading_screen_has_full_coverage
+signal loading_screen_has_full_coverage()
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 

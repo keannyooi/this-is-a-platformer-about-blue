@@ -1,11 +1,24 @@
-[gd_scene load_steps=31 format=3 uid="uid://c52ida6t3ojhh"]
+[gd_scene load_steps=36 format=3 uid="uid://c52ida6t3ojhh"]
 
 [ext_resource type="Script" path="res://util/pause_menu.gd" id="1_0v7ca"]
 [ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="1_u4m4g"]
+[ext_resource type="PackedScene" uid="uid://rv0thp4qvv0d" path="res://util/settings_container.tscn" id="3_ckuse"]
 [ext_resource type="Texture2D" uid="uid://yon2eqldod7d" path="res://assets/sprites/tv_startup_spritesheet.png" id="3_skoxf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rss8y"]
 bg_color = Color(0, 0, 0, 0.501961)
+
+[sub_resource type="InputEventAction" id="InputEventAction_602pb"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_g7248"]
+events = [SubResource("InputEventAction_602pb")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_0nobj"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_d77ke"]
+events = [SubResource("InputEventAction_0nobj")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2xosb"]
 atlas = ExtResource("3_skoxf")
@@ -227,16 +240,16 @@ theme = ExtResource("1_u4m4g")
 theme_override_styles/panel = SubResource("StyleBoxFlat_rss8y")
 tabs_visible = false
 
-[node name="CenterContainer" type="CenterContainer" parent="TabContainer"]
+[node name="MainTab" type="CenterContainer" parent="TabContainer"]
 layout_mode = 2
 
-[node name="MainTab" type="VBoxContainer" parent="TabContainer/CenterContainer"]
+[node name="MainTab" type="VBoxContainer" parent="TabContainer/MainTab"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_u4m4g")
 alignment = 1
 
-[node name="Label" type="Label" parent="TabContainer/CenterContainer/MainTab"]
+[node name="Label" type="Label" parent="TabContainer/MainTab/MainTab"]
 layout_mode = 2
 theme = ExtResource("1_u4m4g")
 theme_override_font_sizes/font_size = 32
@@ -244,7 +257,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="TabContainer/CenterContainer/MainTab"]
+[node name="ContinueButton" type="Button" parent="TabContainer/MainTab/MainTab"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -253,24 +266,40 @@ theme = ExtResource("1_u4m4g")
 button_mask = 0
 text = "Continue"
 
-[node name="ReturnButton" type="Button" parent="TabContainer/CenterContainer/MainTab"]
+[node name="SettingsButton" type="Button" parent="TabContainer/MainTab/MainTab"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ReturnButton")
+theme = ExtResource("1_u4m4g")
+button_mask = 0
+text = "Settings"
+
+[node name="ReturnButton" type="Button" parent="TabContainer/MainTab/MainTab"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ContinueButton")
 theme = ExtResource("1_u4m4g")
 button_mask = 0
+shortcut = SubResource("Shortcut_g7248")
+shortcut_in_tooltip = false
 text = "Return"
 
-[node name="CenterContainer2" type="CenterContainer" parent="TabContainer"]
+[node name="SettingsContainer" parent="TabContainer" instance=ExtResource("3_ckuse")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="ConfirmTab" type="VBoxContainer" parent="TabContainer/CenterContainer2"]
+[node name="ConfirmTab" type="CenterContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ConfirmTab" type="VBoxContainer" parent="TabContainer/ConfirmTab"]
 layout_mode = 2
 theme = ExtResource("1_u4m4g")
 
-[node name="Label" type="Label" parent="TabContainer/CenterContainer2/ConfirmTab"]
+[node name="Label" type="Label" parent="TabContainer/ConfirmTab/ConfirmTab"]
 custom_minimum_size = Vector2(336, 0)
 layout_mode = 2
 theme = ExtResource("1_u4m4g")
@@ -279,7 +308,7 @@ text = "Are you sure you want to return to the main menu? All your progress will
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="ConfirmReturnButton" type="Button" parent="TabContainer/CenterContainer2/ConfirmTab"]
+[node name="ConfirmReturnButton" type="Button" parent="TabContainer/ConfirmTab/ConfirmTab"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -287,9 +316,11 @@ size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../DenyReturnButton")
 theme = ExtResource("1_u4m4g")
 button_mask = 0
+shortcut = SubResource("Shortcut_d77ke")
+shortcut_in_tooltip = false
 text = "Yes"
 
-[node name="DenyReturnButton" type="Button" parent="TabContainer/CenterContainer2/ConfirmTab"]
+[node name="DenyReturnButton" type="Button" parent="TabContainer/ConfirmTab/ConfirmTab"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -314,7 +345,8 @@ position = Vector2(168, 112)
 sprite_frames = SubResource("SpriteFrames_0apyq")
 animation = &"transition_in"
 
-[connection signal="pressed" from="TabContainer/CenterContainer/MainTab/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="TabContainer/CenterContainer/MainTab/ReturnButton" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="TabContainer/CenterContainer2/ConfirmTab/ConfirmReturnButton" to="." method="_on_confirm_return_button_pressed"]
-[connection signal="pressed" from="TabContainer/CenterContainer2/ConfirmTab/DenyReturnButton" to="." method="_on_deny_return_button_pressed"]
+[connection signal="pressed" from="TabContainer/MainTab/MainTab/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="TabContainer/MainTab/MainTab/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="TabContainer/MainTab/MainTab/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="TabContainer/ConfirmTab/ConfirmTab/ConfirmReturnButton" to="." method="_on_confirm_return_button_pressed"]
+[connection signal="pressed" from="TabContainer/ConfirmTab/ConfirmTab/DenyReturnButton" to="." method="_on_deny_return_button_pressed"]

@@ -1,7 +1,7 @@
 extends CanvasLayer
 class_name DialogPlayer
 
-signal dialog_complete
+signal dialog_complete()
 
 @onready var dialog_section: Label = $DialogSection
 @onready var dialog_timer: Timer = $DialogTimer
@@ -16,27 +16,32 @@ var in_progress: bool = false
 
 
 func _ready() -> void:
+	# loading in dialogs.json file, where all dialogs are stored
 	if not FileAccess.file_exists(dialogs_file_path):
 		return push_error("ERROR: dialogs.json not found")
 
 	var dialogs_file = FileAccess.open(dialogs_file_path, FileAccess.READ)
 	dialogs_dict = JSON.parse_string(dialogs_file.get_as_text())
-
-	hide()
+	
+	# it will only show itself when triggered
+	self.hide()
 	
 
 func display_dialog(dialog: Array) -> void:
 	if dialog_pointer + 1 > dialog.size():
+		# that's it. that's the end of the dialog
 		animation_player.play("text_fade")
 		await animation_player.animation_finished
 		return end_dialog()
 	
 	print_debug("displaying line %d of dialog %s" % [dialog_pointer, dialog_key])
 	if dialog_pointer > 0:
+		# transitioning from previous line to the next
 		animation_player.play("text_fade")
 		await animation_player.animation_finished
 	
 	dialog_section.text = dialog[dialog_pointer]
+	# ah yes, the opposite of fading out is fading in
 	animation_player.play_backwards("text_fade")
 	await animation_player.animation_finished
 	
@@ -53,9 +58,13 @@ func end_dialog() -> void:
 
 func start_dialog(key: String) -> void:
 	if not key in dialogs_dict:
-		return push_error("ERROR: dialog key doesn't exist in dialogs.json")
+		push_error("ERROR: dialog key \"%s\" doesn't exist in dialogs.json"% key)
+		return
 	
+	# storing the chosen dialog key internally for reference as the
+	# dialog player progresses
 	dialog_key = key
+	# start automatically going through dialog text
 	dialog_timer.start()
 	in_progress = true
 	display_dialog(dialogs_dict[dialog_key])
@@ -63,6 +72,7 @@ func start_dialog(key: String) -> void:
 	
 
 func _on_dialog_timer_timeout() -> void:
+	# progress through dialog every (insert set amount of seconds)
 	dialog_timer.start()
 	dialog_pointer += 1
 	display_dialog(dialogs_dict[dialog_key])

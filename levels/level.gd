@@ -11,30 +11,46 @@ enum LevelCompleteDirection { LEFT, RIGHT, UP, DOWN }
 @onready var player_camera: Camera2D = $Player/Camera2D
 @onready var ui: UI = $UI
 
-var start_msec: int
-var last_checkpoint: Dictionary = {
-	"id": 0.0,
-	"position": Vector2i(32, 168)
+var dialog_key_dict: Dictionary = {
+	1.0: "section_1",
+	5.0: "section_2",
+	10.0: "section_3",
+	15.0: "section_4",
+	20.0: "section_5",
+	25.0: "section_6"
 }
 var is_level_completed: bool = false
+var last_checkpoint: Dictionary = {
+	"id": 0.0,
+	"position": Vector2i(32, 168) # spawn point
+}
+var start_msec: int
+
 
 func _ready() -> void:
-	start_msec = Time.get_ticks_msec()
+	# initializing player camera limits
 	player_camera.limit_right = level_edge.x
 	player_camera.limit_top = level_edge.y
 	
+	# speedrun timer, will update code when it's actually in
+	start_msec = Time.get_ticks_msec()
+	 
 	Events.checkpoint_reached.connect(checkpoint_reached)
-	Events.battery_collected.connect(battery_collected)
+	# recharge energy when battery collectible is collected
+	Events.battery_collected.connect(recharge_player_energy)
 	
+	# this line is for level testing purposes
 	# player.position = $Checkpoints/WinArea9.position
 	
 
 func _process(_delta: float) -> void:
 	if not is_level_completed:
 		if player.recharge_cooldown_timer.time_left == 0.0:
+			# energy bar ui updating
 			ui.update_energy_bar(player.energy)
 			player.update_energy_bar()
 		
+		# speedrun timer, will update code when it's actually in
 		ui.update_timer(Time.get_ticks_msec() - start_msec)
 	
 
@@ -52,28 +68,18 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func checkpoint_reached(checkpoint: Checkpoint) -> void:
 	recharge_player_energy()
+	
+	# only store a new checkpoint if the checkpoint comes after the
+	# original
 	if checkpoint.id <= last_checkpoint.id: return
 	
 	last_checkpoint.id = checkpoint.id
 	last_checkpoint.position = checkpoint.position
 	
-	match checkpoint.id:
-		1.0:
-			dialog_player.start_dialog("section_1")
-		5.0:
-			dialog_player.start_dialog("section_2")
-		10.0:
-			dialog_player.start_dialog("section_3")
-		15.0:
-			dialog_player.start_dialog("section_4")
-		17.0:
-			dialog_player.start_dialog("section_5")
-		_:
-			pass
-	
-
-func battery_collected() -> void:
-	recharge_player_energy()
+	# only play dialog if the current checkpoint's id is inside
+	# the dialog key dictionary
+	if checkpoint.id not in dialog_key_dict: return
+	dialog_player.start_dialog(dialog_key_dict[checkpoint.id])
 	
 
 func _on_out_of_bounds_area_body_entered(_body: Player) -> void:
@@ -89,7 +95,10 @@ func recharge_player_energy() -> void:
 
 func respawn() -> void:
 	player.position = last_checkpoint.position
+	# this is to prevent the player from flying off from residual
+	# velocity when resetting
 	player.velocity = Vector2.ZERO
+	
 	Events.player_respawned.emit()
 	
 

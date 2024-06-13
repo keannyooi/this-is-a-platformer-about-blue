@@ -29,22 +29,25 @@ bus = &"SFX"
 
 [node name="CheckpointSFX" type="AudioStreamPlayer" parent="Gameplay"]
 stream = ExtResource("3_b3emq")
+max_polyphony = 5
 bus = &"SFX"
 
 [node name="PlayerFloatingSFX" type="AudioStreamPlayer" parent="Gameplay"]
 stream = ExtResource("3_vdc62")
-volume_db = -15.0
+volume_db = -20.0
 bus = &"SFX"
 
 [node name="PlayerLandingSFXs" type="Node" parent="Gameplay"]
 
 [node name="SoftLandingSFX" type="AudioStreamPlayer" parent="Gameplay/PlayerLandingSFXs"]
 stream = ExtResource("4_68htn")
+volume_db = 5.0
 max_polyphony = 2
 bus = &"SFX"
 
 [node name="MetallicLandingSFX" type="AudioStreamPlayer" parent="Gameplay/PlayerLandingSFXs"]
 stream = ExtResource("5_v5i83")
+volume_db = -3.0
 max_polyphony = 2
 bus = &"SFX"
 

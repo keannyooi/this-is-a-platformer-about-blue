@@ -11,6 +11,7 @@ func _ready() -> void:
 	
 
 func _unhandled_input(event: InputEvent) -> void:
+	# ignore inputs when transition animations are playing
 	if (event.is_action_pressed("ui_accept") and not event.is_echo()
 	and not animation_player.is_playing()):
 		dialog_player.hide()
