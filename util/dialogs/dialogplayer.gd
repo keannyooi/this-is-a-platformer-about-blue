@@ -58,7 +58,7 @@ func end_dialog() -> void:
 
 func start_dialog(key: String) -> void:
 	if not key in dialogs_dict:
-		push_error("ERROR: dialog key \"%s\" doesn't exist in dialogs.json"% key)
+		push_error("ERROR: dialog key \"%s\" doesn't exist in dialogs.json" % key)
 		return
 	
 	# storing the chosen dialog key internally for reference as the
@@ -76,3 +76,4 @@ func _on_dialog_timer_timeout() -> void:
 	dialog_timer.start()
 	dialog_pointer += 1
 	display_dialog(dialogs_dict[dialog_key])
+	

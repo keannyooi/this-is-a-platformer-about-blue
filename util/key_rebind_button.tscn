@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbfbu8iqk0dnh"]
+
+[ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="1_6cwqq"]
+[ext_resource type="Script" path="res://util/key_rebind_button.gd" id="1_dn65n"]
+
+[node name="KeyRebindButton" type="Button" groups=["key_rebind_buttons"]]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 75.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+theme = ExtResource("1_6cwqq")
+theme_type_variation = &"KeyRebindButton"
+toggle_mode = true
+text = "text"
+script = ExtResource("1_dn65n")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

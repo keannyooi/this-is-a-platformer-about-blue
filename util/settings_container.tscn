@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://rv0thp4qvv0d"]
+[gd_scene load_steps=6 format=3 uid="uid://rv0thp4qvv0d"]
 
 [ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="1_kvsg5"]
 [ext_resource type="Script" path="res://util/settings_container.gd" id="2_4ck2k"]
+[ext_resource type="PackedScene" uid="uid://dbfbu8iqk0dnh" path="res://util/key_rebind_button.tscn" id="3_neljd"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_p76ua"]
 action = &"ui_cancel"
@@ -17,7 +18,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 2
 theme = ExtResource("1_kvsg5")
+alignment = 1
 script = ExtResource("2_4ck2k")
 
 [node name="Sections" type="TabContainer" parent="."]
@@ -25,8 +28,11 @@ layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 2
 tab_alignment = 1
+current_tab = 2
+all_tabs_in_front = true
 
 [node name="Audio" type="VBoxContainer" parent="Sections"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -65,41 +71,173 @@ vertical_alignment = 1
 
 [node name="Sliders" type="VBoxContainer" parent="Sections/Audio/VolumeSection"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 9
 alignment = 1
 
-[node name="BGMVolumeSlider" type="HScrollBar" parent="Sections/Audio/VolumeSection/Sliders"]
+[node name="BGMVolumeSlider" type="HSlider" parent="Sections/Audio/VolumeSection/Sliders"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
-focus_mode = 2
 max_value = 1.0
-custom_step = 0.1
+step = 0.1
+scrollable = false
+tick_count = 6
+ticks_on_borders = true
 
-[node name="SFXVolumeSlider" type="HScrollBar" parent="Sections/Audio/VolumeSection/Sliders"]
+[node name="SFXVolumeSlider" type="HSlider" parent="Sections/Audio/VolumeSection/Sliders"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
-focus_mode = 2
 max_value = 1.0
-custom_step = 0.1
+step = 0.1
+scrollable = false
+tick_count = 6
+ticks_on_borders = true
 
 [node name="Gameplay" type="VBoxContainer" parent="Sections"]
 visible = false
 layout_mode = 2
 alignment = 1
 
-[node name="CheckButton" type="CheckButton" parent="Sections/Gameplay"]
+[node name="Booleans" type="HBoxContainer" parent="Sections/Gameplay"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sections/Gameplay/Booleans"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Sections/Gameplay/Booleans/VBoxContainer"]
+layout_mode = 2
+text = "Speedrun Timer"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Sections/Gameplay/Booleans"]
+layout_mode = 2
+
+[node name="CheckButton2" type="CheckButton" parent="Sections/Gameplay/Booleans/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 disabled = true
-text = "Speedrun Timer"
 
-[node name="Controls" type="MarginContainer" parent="Sections"]
+[node name="Display" type="VBoxContainer" parent="Sections"]
+layout_mode = 2
+alignment = 1
+
+[node name="Booleans" type="HBoxContainer" parent="Sections/Display"]
+layout_mode = 2
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="Sections/Display/Booleans"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="Sections/Display/Booleans/Labels"]
+layout_mode = 2
+text = "Fullscreen Enabled"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Checkboxes" type="VBoxContainer" parent="Sections/Display/Booleans"]
+layout_mode = 2
+
+[node name="FullscreenMode" type="CheckButton" parent="Sections/Display/Booleans/Checkboxes"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Controls" type="VBoxContainer" parent="Sections"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Controls" type="HBoxContainer" parent="Sections/Controls"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="Sections/Controls/Controls"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="Sections/Controls/Controls/Labels"]
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+text = "Move Left"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Sections/Controls/Controls/Labels"]
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+text = "Move Right"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Sections/Controls/Controls/Labels"]
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+text = "Float"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="Sections/Controls/Controls/Labels"]
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+text = "Restart"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="Sections/Controls/Controls/Labels"]
+custom_minimum_size = Vector2(0, 23)
+layout_mode = 2
+text = "Interact"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="KeyRebindButtons" type="VBoxContainer" parent="Sections/Controls/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="KeyRebindButton" parent="Sections/Controls/Controls/KeyRebindButtons" instance=ExtResource("3_neljd")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../..")
+focus_neighbor_bottom = NodePath("../KeyRebindButton2")
+
+[node name="KeyRebindButton2" parent="Sections/Controls/Controls/KeyRebindButtons" instance=ExtResource("3_neljd")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../KeyRebindButton")
+focus_neighbor_bottom = NodePath("../KeyRebindButton3")
+input_action = 1
+
+[node name="KeyRebindButton3" parent="Sections/Controls/Controls/KeyRebindButtons" instance=ExtResource("3_neljd")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../KeyRebindButton2")
+focus_neighbor_bottom = NodePath("../KeyRebindButton4")
+input_action = 2
+
+[node name="KeyRebindButton4" parent="Sections/Controls/Controls/KeyRebindButtons" instance=ExtResource("3_neljd")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../KeyRebindButton3")
+focus_neighbor_bottom = NodePath("../KeyRebindButton5")
+input_action = 3
+
+[node name="KeyRebindButton5" parent="Sections/Controls/Controls/KeyRebindButtons" instance=ExtResource("3_neljd")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../KeyRebindButton4")
+focus_neighbor_bottom = NodePath("../../../../../ReturnButton")
+input_action = 4
+
+[node name="Label" type="Label" parent="Sections/Controls"]
+layout_mode = 2
+text = "Press [Enter] or [Space] to rebind selected key"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
@@ -115,9 +253,10 @@ shortcut_in_tooltip = false
 text = "Back"
 
 [node name="SliderDebounceTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 
 [connection signal="value_changed" from="Sections/Audio/VolumeSection/Sliders/BGMVolumeSlider" to="." method="_on_bgm_volume_slider_value_changed"]
 [connection signal="value_changed" from="Sections/Audio/VolumeSection/Sliders/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="toggled" from="Sections/Display/Booleans/Checkboxes/FullscreenMode" to="." method="_on_fullscreen_mode_toggled"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

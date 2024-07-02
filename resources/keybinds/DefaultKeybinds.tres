@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="KeybindsResource" load_steps=7 format=3 uid="uid://d3beyfg3wnah"]
+
+[ext_resource type="Script" path="res://resources/keybinds/KeybindsResource.gd" id="1_fxlwd"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_35rll"]
+device = -1
+physical_keycode = 87
+unicode = 119
+
+[sub_resource type="InputEventKey" id="InputEventKey_44at0"]
+device = -1
+physical_keycode = 69
+unicode = 101
+
+[sub_resource type="InputEventKey" id="InputEventKey_lg7ju"]
+device = -1
+physical_keycode = 65
+unicode = 97
+
+[sub_resource type="InputEventKey" id="InputEventKey_2f4jm"]
+device = -1
+physical_keycode = 68
+unicode = 100
+
+[sub_resource type="InputEventKey" id="InputEventKey_bivg6"]
+device = -1
+physical_keycode = 82
+unicode = 114
+
+[resource]
+script = ExtResource("1_fxlwd")
+DEFAULT_MOVE_LEFT = SubResource("InputEventKey_lg7ju")
+DEFAULT_MOVE_RIGHT = SubResource("InputEventKey_2f4jm")
+DEFAULT_FLOAT = SubResource("InputEventKey_35rll")
+DEFAULT_RESTART = SubResource("InputEventKey_bivg6")
+DEFAULT_INTERACT = SubResource("InputEventKey_44at0")

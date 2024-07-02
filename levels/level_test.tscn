@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bpg2flth8kj0a"]
+[gd_scene load_steps=15 format=3 uid="uid://bpg2flth8kj0a"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_lqu0v"]
 [ext_resource type="Shader" path="res://assets/vignette.gdshader" id="2_sepdc"]
@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://yk7ck8pvav6o" path="res://entities/win_area.tscn" id="7_ydtpb"]
 [ext_resource type="PackedScene" uid="uid://p26bvejpgmuc" path="res://entities/battery_collectible.tscn" id="8_i32ki"]
 [ext_resource type="PackedScene" uid="uid://b5868byvdgan7" path="res://entities/temp_wall.tscn" id="9_l06m6"]
-[ext_resource type="PackedScene" uid="uid://darm7f3g07xdg" path="res://entities/mini_popup_area.tscn" id="10_caxwl"]
+[ext_resource type="PackedScene" uid="uid://d1ido7v2634km" path="res://entities/button.tscn" id="11_jrfg1"]
+[ext_resource type="PackedScene" uid="uid://8g4wm62jfcjk" path="res://entities/button_platform.tscn" id="12_cs4sq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ob0p2"]
 shader = ExtResource("2_sepdc")
@@ -133,8 +134,12 @@ rotation = 1.57079
 position = Vector2(200, 24)
 rotation = 1.57079
 
-[node name="MiniPopup" parent="." instance=ExtResource("10_caxwl")]
-position = Vector2(176, 176)
+[node name="Button" parent="." node_paths=PackedStringArray("linked_platform") instance=ExtResource("11_jrfg1")]
+position = Vector2(232, 168)
+linked_platform = NodePath("../ButtonPlatform")
+
+[node name="ButtonPlatform" parent="." instance=ExtResource("12_cs4sq")]
+position = Vector2(264, 184)
 
 [connection signal="body_entered" from="OutOfBoundsArea" to="." method="_on_out_of_bounds_area_body_entered"]
 [connection signal="body_entered" from="NextAreaTeleport" to="." method="_on_next_area_teleport_body_entered"]

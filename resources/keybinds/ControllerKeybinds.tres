@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="KeybindsResource" load_steps=7 format=3 uid="uid://c7ca3wgp4ovid"]
+
+[ext_resource type="Script" path="res://resources/keybinds/KeybindsResource.gd" id="1_esrdd"]
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_hqe56"]
+button_index = 1
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_ujt5b"]
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_vabuw"]
+axis_value = -1.0
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_icpbn"]
+axis_value = 1.0
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_u3el2"]
+button_index = 2
+
+[resource]
+script = ExtResource("1_esrdd")
+DEFAULT_MOVE_LEFT = SubResource("InputEventJoypadMotion_vabuw")
+DEFAULT_MOVE_RIGHT = SubResource("InputEventJoypadMotion_icpbn")
+DEFAULT_FLOAT = SubResource("InputEventJoypadButton_hqe56")
+DEFAULT_RESTART = SubResource("InputEventJoypadButton_u3el2")
+DEFAULT_INTERACT = SubResource("InputEventJoypadButton_ujt5b")

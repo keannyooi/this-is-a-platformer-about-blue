@@ -56,7 +56,8 @@ func _on_body_exited(_body: Player) -> void:
 	
 
 func _on_scroll_speed_timer_timeout() -> void:
-	# stop if the text has finished scrolling
+	# stop if the text has finished scrolling, or if the player
+	# has left
 	if popup_label.visible_ratio == 1 or not popup.visible: return
 	
 	popup_label.visible_characters += 1

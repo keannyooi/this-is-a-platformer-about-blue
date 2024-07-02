@@ -7,6 +7,7 @@ const FRICTION: float = 200.0
 const ENERGY_DRAIN_SPEED: float = 40.0
 const MAX_ENERGY: int = 100
 
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var energy_bar: TextureProgressBar = $AnimatedSprite2D/EnergyBar
 @onready var float_animation_timer: Timer = $FloatAnimationTimer
 @onready var level_tilemap: TileMap = self.get_node("../TileMap")
@@ -18,6 +19,7 @@ var current_animation: String
 var energy_depleted: bool = false
 var energy: float = MAX_ENERGY
 var float_animation_frame: int = 0
+var force_movement_direction: int
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_forcing_movement: bool = false
 
@@ -34,13 +36,15 @@ func _physics_process(delta: float) -> void:
 	# first check the player's surface touching conditions
 	var was_on_floor = is_on_floor()
 	var was_on_ceiling = is_on_ceiling()
-	# all is_on_[surface]() type calls after this line reflect the
-	# player's new surface touching conditions
+	# all is_on_[surface]() type calls after this line reflect
+	# the player's new surface touching conditions
 	apply_gravity(delta)
 	
-	if not is_forcing_movement:
+	if is_forcing_movement:
 		# you shall not move on your own during the
 		# section complete animation
+		force_movement(force_movement_direction, delta)
+	else:
 		handle_float(delta)
 		
 		var input_axis: float = Input.get_axis("move_left", "move_right")
@@ -62,16 +66,20 @@ func apply_gravity(delta: float) -> void:
 
 func force_movement(direction: int, delta: float) -> void:
 	# section complete animation where the player character
-	# automatically moves itself out of the screen, then transitions
-	# to the next section
+	# automatically moves itself out of the screen
+	# then transitions to the next section
 	is_forcing_movement = true
 	match direction:
 		0: # LEFT
-			self.velocity.x = move_toward(self.velocity.x, -ACCEL, ACCEL * 1.5 * delta)
+			self.velocity.x = move_toward(self.velocity.x,
+				ACCEL, ACCEL * 1.5 * delta)
 		1: # RIGHT
-			self.velocity.x = move_toward(self.velocity.x, ACCEL, ACCEL * 1.5 * delta)
+			self.velocity.x = move_toward(self.velocity.x,
+				-ACCEL, ACCEL * 1.5 * delta)
 		2: # UP
-			self.velocity.y = move_toward(self.velocity.y, FLOAT_ACCEL * -1, FLOAT_ACCEL * 6 * delta)
+			self.velocity.x = 0
+			self.velocity.y = move_toward(self.velocity.y,
+				FLOAT_ACCEL * -1, FLOAT_ACCEL * 6 * delta)
 		3: # DOWN
 			pass
 		_:
@@ -80,7 +88,8 @@ func force_movement(direction: int, delta: float) -> void:
 
 func handle_float(delta: float) -> void:
 	if Input.is_action_pressed("float") and energy > 0.0:
-		self.velocity.y = move_toward(self.velocity.y, FLOAT_ACCEL * -1, FLOAT_ACCEL * 6 * delta)
+		self.velocity.y = move_toward(self.velocity.y, 
+			FLOAT_ACCEL * -1, FLOAT_ACCEL * 6 * delta)
 		
 		if recharge_cooldown_timer.time_left == 0.0:
 			energy -= ENERGY_DRAIN_SPEED * delta
@@ -88,10 +97,12 @@ func handle_float(delta: float) -> void:
 
 func handle_movement(input_axis: float, delta: float) -> void:
 	if input_axis: # player's moving left or right
-		self.velocity.x = move_toward(self.velocity.x, input_axis * ACCEL, ACCEL * 1.5 * delta)
+		self.velocity.x = move_toward(self.velocity.x, 
+			input_axis * ACCEL, ACCEL * 1.5 * delta)
 		sprite.flip_h = input_axis < 0
 	else: # player's not moving, will slow down and stop
-		self.velocity.x = move_toward(self.velocity.x, 0, FRICTION * delta)
+		self.velocity.x = move_toward(self.velocity.x, 0, 
+			FRICTION * delta)
 	
 
 func handle_animation() -> void:
@@ -138,11 +149,9 @@ func recharge_energy() -> void:
 	
 	# lil refill animation for the battery hud above the player
 	# hue value shifts from red (0) back to green (decimal value below)
-	var tween = get_tree().create_tween().set_parallel(true)
-	(tween.tween_property(energy_bar, "value", 100, recharge_cooldown_timer.wait_time)
-	.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC))
-	(tween.tween_property(energy_bar, "modulate:h", 0.35278, recharge_cooldown_timer.wait_time)
-	.set_trans(Tween.TRANS_CUBIC))
+	var tween = get_tree().create_tween().set_parallel(true).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(energy_bar, "value", 100, recharge_cooldown_timer.wait_time)
+	tween.tween_property(energy_bar, "modulate:h", 0.35278, recharge_cooldown_timer.wait_time)
 	
 
 func update_energy_bar() -> void:

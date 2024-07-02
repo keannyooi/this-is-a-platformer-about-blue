@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://cfjynyb05tw4p" path="res://assets/fonts/m3x6.ttf" id="1_ngiku"]
 [ext_resource type="Script" path="res://entities/mini_popup_area.gd" id="1_rig5r"]
-[ext_resource type="Texture2D" uid="uid://bqvarounyfqis" path="res://assets/sprites/ninepatch_panel.png" id="1_t2r75"]
+[ext_resource type="Texture2D" uid="uid://ro3c4w8cmb1i" path="res://assets/sprites/ui/ninepatch_panel.png" id="2_3ok0s"]
 [ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="3_iln0h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cwvnm"]
@@ -14,7 +14,7 @@ script = ExtResource("1_rig5r")
 
 [node name="Popup" type="VBoxContainer" parent="."]
 visible = false
-z_index = 2
+z_index = 3
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -32,7 +32,7 @@ layout_mode = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Popup/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("1_t2r75")
+texture = ExtResource("2_3ok0s")
 patch_margin_left = 2
 patch_margin_top = 2
 patch_margin_right = 2
@@ -65,7 +65,7 @@ z_index = 1
 layout_mode = 2
 theme = ExtResource("3_iln0h")
 theme_override_fonts/font = ExtResource("1_ngiku")
-text = "[Q] Close"
+text = "[E] Close"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -80,7 +80,7 @@ offset_right = 40.0
 grow_vertical = 0
 theme = ExtResource("3_iln0h")
 theme_override_fonts/font = ExtResource("1_ngiku")
-text = "[Q]
+text = "[E]
 "
 
 [node name="ScrollSpeedTimer" type="Timer" parent="."]

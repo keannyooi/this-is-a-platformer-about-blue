@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://8g4wm62jfcjk"]
+
+[ext_resource type="Texture2D" uid="uid://qnmecvl1n5au" path="res://assets/sprites/buttonplatform.png" id="1_p88x0"]
+[ext_resource type="Script" path="res://entities/button_platform.gd" id="1_xcd2w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydp5n"]
+atlas = ExtResource("1_p88x0")
+region = Rect2(0, 0, 80, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwlcr"]
+size = Vector2(80, 16)
+
+[node name="ButtonPlatform" type="StaticBody2D"]
+script = ExtResource("1_xcd2w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ydp5n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dwlcr")

@@ -1,9 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://c52ida6t3ojhh"]
+[gd_scene load_steps=20 format=3 uid="uid://c52ida6t3ojhh"]
 
 [ext_resource type="Script" path="res://util/pause_menu.gd" id="1_0v7ca"]
 [ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="1_u4m4g"]
 [ext_resource type="PackedScene" uid="uid://rv0thp4qvv0d" path="res://util/settings_container.tscn" id="3_ckuse"]
-[ext_resource type="Texture2D" uid="uid://yon2eqldod7d" path="res://assets/sprites/tv_startup_spritesheet.png" id="3_skoxf"]
+[ext_resource type="Texture2D" uid="uid://b2et66he7rlqf" path="res://assets/sprites/ui/tv_startup_spritesheet.png" id="4_a74uj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rss8y"]
 bg_color = Color(0, 0, 0, 0.501961)
@@ -20,206 +20,71 @@ action = &"ui_cancel"
 [sub_resource type="Shortcut" id="Shortcut_d77ke"]
 events = [SubResource("InputEventAction_0nobj")]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xosb"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(672, 448, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_76xpg"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(0, 0, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eo6ot"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(336, 448, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kg58"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(336, 0, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_heppp"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 448, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfl3r"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(672, 0, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_msyj1"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(672, 224, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fh1it"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(0, 252, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bwfmd"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(336, 224, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya02j"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(336, 252, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6quc"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 224, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_d00d5"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(672, 252, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lr0ps"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(672, 0, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_v56bs"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(0, 504, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xbtnn"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(336, 0, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8hws"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(336, 504, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ks37o"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 0, 336, 224)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3h6v6"]
+atlas = ExtResource("4_a74uj")
+region = Rect2(672, 504, 336, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kdl2v"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(1008, 224, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bl7i5"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(336, 672, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_loilx"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(672, 672, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6g4hf"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(1008, 0, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oxvpx"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(1008, 448, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xk4po"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 672, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_no78g"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 672, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rvghn"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 0, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bc68j"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(336, 0, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8yq7k"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(672, 0, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gcu0q"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 224, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bscm2"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(336, 224, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j6adl"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(672, 224, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3ifdw"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(0, 448, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x5fjy"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(336, 448, 336, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_on8ll"]
-atlas = ExtResource("3_skoxf")
-region = Rect2(672, 448, 336, 224)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0apyq"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_d6jjv"]
 animations = [{
 "frames": [{
 "duration": 7.5,
-"texture": SubResource("AtlasTexture_2xosb")
+"texture": SubResource("AtlasTexture_76xpg")
 }, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_eo6ot")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kg58")
 }, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_heppp")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfl3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fh1it")
 }, {
 "duration": 1.5,
-"texture": SubResource("AtlasTexture_msyj1")
+"texture": SubResource("AtlasTexture_ya02j")
 }, {
 "duration": 1.5,
-"texture": SubResource("AtlasTexture_bwfmd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t6quc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lr0ps")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xbtnn")
+"texture": SubResource("AtlasTexture_d00d5")
 }, {
 "duration": 2.0,
-"texture": SubResource("AtlasTexture_ks37o")
+"texture": SubResource("AtlasTexture_v56bs")
 }, {
 "duration": 2.0,
-"texture": SubResource("AtlasTexture_kdl2v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bl7i5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_loilx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6g4hf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bl7i5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_loilx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6g4hf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bl7i5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_loilx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6g4hf")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_oxvpx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xk4po")
-}],
-"loop": false,
-"name": &"transition_in",
-"speed": 25.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_no78g")
-}, {
-"duration": 7.5,
-"texture": SubResource("AtlasTexture_rvghn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bc68j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8yq7k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gcu0q")
-}, {
-"duration": 1.5,
-"texture": SubResource("AtlasTexture_bscm2")
-}, {
-"duration": 1.5,
-"texture": SubResource("AtlasTexture_j6adl")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_3ifdw")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_x5fjy")
+"texture": SubResource("AtlasTexture_p8hws")
 }, {
 "duration": 3.0,
-"texture": SubResource("AtlasTexture_on8ll")
+"texture": SubResource("AtlasTexture_3h6v6")
 }],
 "loop": false,
 "name": &"transition_out",
@@ -263,16 +128,13 @@ custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../ReturnButton")
 theme = ExtResource("1_u4m4g")
-button_mask = 0
 text = "Continue"
 
 [node name="SettingsButton" type="Button" parent="TabContainer/MainTab/MainTab"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-focus_neighbor_top = NodePath("../ReturnButton")
 theme = ExtResource("1_u4m4g")
-button_mask = 0
 text = "Settings"
 
 [node name="ReturnButton" type="Button" parent="TabContainer/MainTab/MainTab"]
@@ -281,7 +143,6 @@ custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ContinueButton")
 theme = ExtResource("1_u4m4g")
-button_mask = 0
 shortcut = SubResource("Shortcut_g7248")
 shortcut_in_tooltip = false
 text = "Return"
@@ -315,7 +176,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../DenyReturnButton")
 theme = ExtResource("1_u4m4g")
-button_mask = 0
 shortcut = SubResource("Shortcut_d77ke")
 shortcut_in_tooltip = false
 text = "Yes"
@@ -327,7 +187,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_bottom = NodePath("../ConfirmReturnButton")
 theme = ExtResource("1_u4m4g")
-button_mask = 0
 text = "No"
 
 [node name="Transition" type="Control" parent="."]
@@ -337,13 +196,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="TransitionSprite" type="AnimatedSprite2D" parent="Transition"]
-unique_name_in_owner = true
 visible = false
-position = Vector2(168, 112)
-sprite_frames = SubResource("SpriteFrames_0apyq")
-animation = &"transition_in"
+position = Vector2(168, 126)
+sprite_frames = SubResource("SpriteFrames_d6jjv")
+animation = &"transition_out"
+frame = 8
+frame_progress = 1.0
 
 [connection signal="pressed" from="TabContainer/MainTab/MainTab/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="TabContainer/MainTab/MainTab/SettingsButton" to="." method="_on_settings_button_pressed"]

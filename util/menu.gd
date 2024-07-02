@@ -51,10 +51,7 @@ func handle_transition_out_request() -> void:
 	if transition_sprite.is_playing(): return
 	
 	# the play hover sfx shouldn't play after this
-	# also doubles as manual cleanup i guess
-	play_button.focus_entered.disconnect(AudioManager.button_hover_sfx.play)
-	quit_button.focus_entered.disconnect(AudioManager.button_hover_sfx.play)
-	settings_button.focus_entered.disconnect(AudioManager.button_hover_sfx.play)
+	transition_sprite.get_parent().mouse_filter = Control.MOUSE_FILTER_STOP
 	
 	# transition out animation
 	transition_sprite.play("transition_out")

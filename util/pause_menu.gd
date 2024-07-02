@@ -6,16 +6,18 @@ enum { PAUSE_TAB, SETTINGS, CONFIRM_TAB }
 @onready var continue_button: Button = %ContinueButton
 @onready var deny_return_button: Button = %DenyReturnButton
 @onready var return_button: Button = %ReturnButton
+@onready var settings_button: Button = %SettingsButton
 @onready var settings_container: SettingsContainer = %SettingsContainer
 @onready var tab_container: TabContainer = $TabContainer
-@onready var transition_sprite: AnimatedSprite2D = %TransitionSprite
+@onready var transition_sprite: AnimatedSprite2D = $Transition/TransitionSprite
 
 
 func _ready() -> void:
 	# initial setup
 	connect_signals()
 	
-	hide() # pause menu hidden at first
+	transition_sprite.hide()
+	self.hide() # pause menu hidden at first
 	
 
 func connect_signals() -> void:
@@ -24,6 +26,14 @@ func connect_signals() -> void:
 	continue_button.focus_entered.connect(AudioManager.button_hover_sfx.play)
 	deny_return_button.focus_entered.connect(AudioManager.button_hover_sfx.play)
 	return_button.focus_entered.connect(AudioManager.button_hover_sfx.play)
+	settings_button.focus_entered.connect(AudioManager.button_hover_sfx.play)
+	
+	# grab focus when the mouse is hovering over any button
+	confirm_return_button.mouse_entered.connect(confirm_return_button.grab_focus)
+	continue_button.mouse_entered.connect(continue_button.grab_focus)
+	deny_return_button.mouse_entered.connect(deny_return_button.grab_focus)
+	return_button.mouse_entered.connect(return_button.grab_focus)
+	settings_button.mouse_entered.connect(settings_button.grab_focus)
 	
 	settings_container.settings_exit.connect(_on_deny_return_button_pressed)
 	
@@ -34,7 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().paused = true
 		reset_pause_menu()
 		
-		show()
+		self.show()
 	
 
 func reset_pause_menu() -> void:

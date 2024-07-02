@@ -40,7 +40,7 @@ func _ready() -> void:
 	Events.battery_collected.connect(recharge_player_energy)
 	
 	# this line is for level testing purposes
-	# player.position = $Checkpoints/WinArea9.position
+	# player.position = $Checkpoints/WinArea14.position
 	
 
 func _process(_delta: float) -> void:
@@ -54,11 +54,6 @@ func _process(_delta: float) -> void:
 		ui.update_timer(Time.get_ticks_msec() - start_msec)
 	
 
-func _physics_process(delta: float) -> void:
-	if is_level_completed:
-		player.force_movement(level_complete_direction, delta)
-	
-
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("restart") and not event.is_echo()
 	and not is_level_completed):
@@ -69,8 +64,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func checkpoint_reached(checkpoint: Checkpoint) -> void:
 	recharge_player_energy()
 	
-	# only store a new checkpoint if the checkpoint comes after the
-	# original
+	# only store a new checkpoint if the checkpoint comes after
+	# the original
 	if checkpoint.id <= last_checkpoint.id: return
 	
 	last_checkpoint.id = checkpoint.id
@@ -80,12 +75,6 @@ func checkpoint_reached(checkpoint: Checkpoint) -> void:
 	# the dialog key dictionary
 	if checkpoint.id not in dialog_key_dict: return
 	dialog_player.start_dialog(dialog_key_dict[checkpoint.id])
-	
-
-func _on_out_of_bounds_area_body_entered(_body: Player) -> void:
-	print_debug("player fell out of bounds, respawning")
-	recharge_player_energy()
-	respawn()
 	
 
 func recharge_player_energy() -> void:
@@ -102,9 +91,18 @@ func respawn() -> void:
 	Events.player_respawned.emit()
 	
 
+func _on_out_of_bounds_area_body_entered(_body: Player) -> void:
+	print_debug("player fell out of bounds, respawning")
+	recharge_player_energy()
+	respawn()
+	
+
 func _on_next_area_teleport_body_entered(_body: Player) -> void:
 	print_debug("level complete!")
+	
+	# start the level complete animation
 	is_level_completed = true
+	player.is_forcing_movement = true
 	Events.level_complete.emit(level_complete_direction)
 	
 	await Events.player_left_screen_after_level_complete

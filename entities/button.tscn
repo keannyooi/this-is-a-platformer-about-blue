@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1ido7v2634km"]
+[gd_scene load_steps=10 format=3 uid="uid://d1ido7v2634km"]
 
+[ext_resource type="Script" path="res://entities/button.gd" id="1_a2ti0"]
 [ext_resource type="Texture2D" uid="uid://127m3dg2qblg" path="res://assets/sprites/buttons.png" id="1_yeeq1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2gkrj"]
@@ -53,7 +54,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_viac6"]
 size = Vector2(12, 6)
 
-[node name="Button" type="Area2D"]
+[node name="PlatformButton" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_a2ti0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_o1n87")
@@ -61,3 +64,9 @@ sprite_frames = SubResource("SpriteFrames_o1n87")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_viac6")
+
+[node name="RestartCooldownTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

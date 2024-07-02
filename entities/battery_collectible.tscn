@@ -20,4 +20,8 @@ texture = ExtResource("2_e581w")
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_76oqs")
 
+[node name="RestartCooldownTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -8,7 +8,7 @@ class_name TempWall
 func _ready() -> void:
 	# restore wall when any of the 3 energy-refilling events happen
 	Events.battery_collected.connect(restore_walls)
-	Events.checkpoint_reached.connect(restore_walls)
+	Events.checkpoint_reached.connect(checkpoint_reached)
 	Events.player_respawned.connect(restore_walls)
 	
 	# destroy wall when player energy runs out
@@ -16,6 +16,12 @@ func _ready() -> void:
 	
 	# initial state of wall
 	sprite.play("default")
+	
+
+func checkpoint_reached(_checkpoint: Checkpoint) -> void:
+	# this funtion only exists to stop the editor from printing
+	# errors when running perfectly fine
+	restore_walls()
 	
 
 func player_energy_depleted() -> void:

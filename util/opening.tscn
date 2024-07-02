@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1p44wswkps46"]
 
 [ext_resource type="Script" path="res://util/opening.gd" id="1_8fsmf"]
-[ext_resource type="Texture2D" uid="uid://cqddisagd1uxa" path="res://assets/sprites/b+studios.png" id="1_wawu3"]
 [ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="2_ioan6"]
 [ext_resource type="PackedScene" uid="uid://c4hdfq0nwufg2" path="res://util/dialogs/dialog_player.tscn" id="2_jwbs0"]
+[ext_resource type="Texture2D" uid="uid://bgmqymomus10j" path="res://assets/sprites/ui/b+studios.png" id="4_kflv4"]
 [ext_resource type="AudioStream" uid="uid://bs6akv1ik806e" path="res://assets/sfx/opening_ambience.ogg" id="5_vvyf5"]
 
 [sub_resource type="Animation" id="Animation_tmkmn"]
@@ -191,7 +191,7 @@ grow_vertical = 2
 
 [node name="Logo" type="TextureRect" parent="ColorRect/LogoContainer"]
 layout_mode = 2
-texture = ExtResource("1_wawu3")
+texture = ExtResource("4_kflv4")
 
 [node name="OpeningAmbience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_vvyf5")
