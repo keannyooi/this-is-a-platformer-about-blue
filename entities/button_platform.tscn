@@ -11,6 +11,7 @@ region = Rect2(0, 0, 80, 16)
 size = Vector2(80, 16)
 
 [node name="ButtonPlatform" type="StaticBody2D"]
+collision_mask = 2
 script = ExtResource("1_xcd2w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

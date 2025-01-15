@@ -22,7 +22,7 @@ func _ready() -> void:
 	
 
 func button_default_status() -> void:
-	input_action_string = input_action_strings[input_action]
+	# input_action_string = input_action_strings[input_action]
 	
 	# get current input event setup
 	var event_array: Array[InputEvent] = InputMap.action_get_events(

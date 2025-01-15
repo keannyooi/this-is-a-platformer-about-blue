@@ -1,8 +1,8 @@
 [gd_scene load_steps=36 format=3 uid="uid://dydvpncbselka"]
 
 [ext_resource type="Script" path="res://util/menu.gd" id="1_fvcds"]
+[ext_resource type="Texture2D" uid="uid://dibrpsoi1vokh" path="res://assets/sprites/ui/menu_bg.png" id="2_58ybj"]
 [ext_resource type="Theme" uid="uid://b45jfhmer1vsa" path="res://assets/theme.tres" id="2_du7n4"]
-[ext_resource type="Texture2D" uid="uid://bamd1ofyompfi" path="res://assets/sprites/menu_bg.png" id="2_f1rt6"]
 [ext_resource type="Shader" path="res://assets/crt.gdshader" id="3_vrqb0"]
 [ext_resource type="PackedScene" uid="uid://rv0thp4qvv0d" path="res://util/settings_container.tscn" id="4_jvo4h"]
 [ext_resource type="Texture2D" uid="uid://b2et66he7rlqf" path="res://assets/sprites/ui/tv_startup_spritesheet.png" id="6_fdlrj"]
@@ -235,7 +235,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_f1rt6")
+texture = ExtResource("2_58ybj")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 anchors_preset = 15
@@ -295,7 +295,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource("2_du7n4")
-text = " DEMO v0.1.1"
+text = " DEMO v0.1.2"
 
 [node name="SettingsContainer" parent="TabContainer" instance=ExtResource("4_jvo4h")]
 unique_name_in_owner = true
@@ -303,7 +303,6 @@ visible = false
 layout_mode = 2
 
 [node name="CRTShader" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_y8beo")
 anchors_preset = 15
 anchor_right = 1.0

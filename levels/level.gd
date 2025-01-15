@@ -1,14 +1,19 @@
 extends Node2D
 class_name Level
+enum LevelStartDirection { LEFT, RIGHT, UP, DOWN, STATIC }
 enum LevelCompleteDirection { LEFT, RIGHT, UP, DOWN }
+const testing: bool = false # setting this to true skips the
+							# player entering animation
 
 @export var level_id: int
 @export var level_edge := Vector2i(10000, -10000)
+@export var level_start_direction: LevelStartDirection
 @export var level_complete_direction: LevelCompleteDirection
 
 @onready var dialog_player: DialogPlayer = $DialogPlayer
 @onready var player: Player = $Player
 @onready var player_camera: Camera2D = $Player/Camera2D
+@onready var starting_area: Area2D = $StartingArea
 @onready var ui: UI = $UI
 
 var dialog_key_dict: Dictionary = {
@@ -22,7 +27,8 @@ var dialog_key_dict: Dictionary = {
 var is_level_completed: bool = false
 var last_checkpoint: Dictionary = {
 	"id": 0.0,
-	"position": Vector2i(32, 168) # spawn point
+	# "position": Vector2i.ZERO
+	"position": Vector2i.ZERO
 }
 var start_msec: int
 
@@ -31,6 +37,8 @@ func _ready() -> void:
 	# initializing player camera limits
 	player_camera.limit_right = level_edge.x
 	player_camera.limit_top = level_edge.y
+	# initializing respawn point
+	last_checkpoint.position = starting_area.position
 	
 	# speedrun timer, will update code when it's actually in
 	start_msec = Time.get_ticks_msec()
@@ -39,8 +47,15 @@ func _ready() -> void:
 	# recharge energy when battery collectible is collected
 	Events.battery_collected.connect(recharge_player_energy)
 	
-	# this line is for level testing purposes
-	# player.position = $Checkpoints/WinArea14.position
+	if testing:
+		player.position = $Checkpoints/WinArea13.position
+	elif level_start_direction == LevelStartDirection.STATIC:
+		# this is for section 1 only, still thinking of a good
+		# way to do the opening animation cleanly
+		pass
+	else:
+		player.force_movement_direction = level_start_direction
+		player.is_forcing_movement = true
 	
 
 func _process(_delta: float) -> void:
@@ -102,11 +117,17 @@ func _on_next_area_teleport_body_entered(_body: Player) -> void:
 	
 	# start the level complete animation
 	is_level_completed = true
+	player.force_movement_direction = level_complete_direction
 	player.is_forcing_movement = true
-	Events.level_complete.emit(level_complete_direction)
 	
+	Events.level_complete.emit(level_complete_direction)
 	await Events.player_left_screen_after_level_complete
 	
 	if level_id > 0:
 		LoadManager.load_scene("res://levels/level_%d.tscn" % (level_id + 1))
+	
+
+func _on_starting_area_body_entered(_body: Player):
+	# transition animation ended, giving control back to player
+	player.is_forcing_movement = false
 	

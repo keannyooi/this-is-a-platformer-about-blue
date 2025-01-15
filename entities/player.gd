@@ -4,7 +4,7 @@ class_name Player
 const ACCEL: float = 75.0
 const FLOAT_ACCEL: float = 75.0
 const FRICTION: float = 200.0
-const ENERGY_DRAIN_SPEED: float = 40.0
+const ENERGY_DRAIN_SPEED: float = 35.0
 const MAX_ENERGY: int = 100
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -27,7 +27,6 @@ var is_forcing_movement: bool = false
 func _ready() -> void:
 	update_energy_bar()
 	
-	Events.level_complete.connect(force_movement)
 	AudioManager.player_floating_sfx.play()
 	
 
@@ -49,7 +48,7 @@ func _physics_process(delta: float) -> void:
 		
 		var input_axis: float = Input.get_axis("move_left", "move_right")
 		handle_movement(input_axis, delta)
-
+	
 	move_and_slide()
 	handle_animation()
 	handle_sfx(was_on_floor, was_on_ceiling)
@@ -72,10 +71,10 @@ func force_movement(direction: int, delta: float) -> void:
 	match direction:
 		0: # LEFT
 			self.velocity.x = move_toward(self.velocity.x,
-				ACCEL, ACCEL * 1.5 * delta)
+				-ACCEL, ACCEL * 1.5 * delta)
 		1: # RIGHT
 			self.velocity.x = move_toward(self.velocity.x,
-				-ACCEL, ACCEL * 1.5 * delta)
+				ACCEL, ACCEL * 1.5 * delta)
 		2: # UP
 			self.velocity.x = 0
 			self.velocity.y = move_toward(self.velocity.y,
@@ -132,11 +131,9 @@ func handle_sfx(was_on_floor: bool, was_on_ceiling: bool) -> void:
 	# the game should make a noise when the player bumps either
 	# the floor or the ceiling
 	if not was_on_floor and is_on_floor():
-		AudioManager.update_landing_sfx(level_tilemap, self)
-		AudioManager.player_landing_sfxs[AudioManager.landing_sfx_index].play()
+		AudioManager.play_landing_sfx(level_tilemap, self.global_position)
 	if not was_on_ceiling and is_on_ceiling():
-		AudioManager.update_landing_sfx(level_tilemap, self)
-		AudioManager.player_landing_sfxs[AudioManager.ceiling_sfx_index].play()
+		AudioManager.play_ceiling_sfx(level_tilemap, self.global_position)
 	
 
 func recharge_energy() -> void:

@@ -38,13 +38,24 @@ func connect_signals() -> void:
 	settings_container.settings_exit.connect(_on_deny_return_button_pressed)
 	
 
+func _notification(what: int) -> void:
+	# pauses game when the game window is out of focus
+	if (what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT
+	and not get_tree().paused):
+		pause_game()
+	
+
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("ui_cancel") 
 	and not event.is_echo() and not get_tree().paused):
-		get_tree().paused = true
-		reset_pause_menu()
+		pause_game()
+	
+
+func pause_game() -> void:
+	get_tree().paused = true
+	reset_pause_menu()
 		
-		self.show()
+	self.show()
 	
 
 func reset_pause_menu() -> void:
@@ -54,7 +65,7 @@ func reset_pause_menu() -> void:
 
 func _on_continue_button_pressed() -> void:
 	get_tree().paused = false
-	hide()
+	self.hide()
 	
 
 func _on_return_button_pressed() -> void:

@@ -25,21 +25,21 @@ var settings_dict: Dictionary = {
 	}
 }
 
+
 func _ready() -> void:
-	if FileAccess.file_exists(SETTINGS_FILE_PATH):
-		print("settings config file exists, attempting to load")
+	if not FileAccess.file_exists(SETTINGS_FILE_PATH):
+		print("settings config file not found at specified file path, creating new file")
+		save_settings()
+	
+	print("loading settings config file...")
 		
-		var settings_file_load_status = settings_file.load(SETTINGS_FILE_PATH)
-		if settings_file_load_status == OK:
-			load_settings()
+	var settings_file_load_status = settings_file.load(SETTINGS_FILE_PATH)
+	if settings_file_load_status == OK:
+		load_settings()
 			
-			return print("settings config file successfully loaded")
-		else:
-			return push_error("ERROR: settings config file failed to load in")
-	
-	print("settings config file not found at specified file path, creating new file")
-	
-	save_settings()
+		return print("settings config file successfully loaded")
+	else:
+		return push_error("ERROR: settings config file failed to load in")
 	
 
 func is_duplicate_key(event: InputEvent) -> bool:

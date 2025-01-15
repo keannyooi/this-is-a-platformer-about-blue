@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpwnw8p8xh26d"]
+
+[ext_resource type="Texture2D" uid="uid://bprr1xjyacp2p" path="res://assets/sprites/background/ventfan.png" id="1_wtngf"]
+[ext_resource type="Script" path="res://entities/background/vent_fan.gd" id="2_lmogg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvmxc"]
+atlas = ExtResource("1_wtngf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epi51"]
+atlas = ExtResource("1_wtngf")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q5pu"]
+atlas = ExtResource("1_wtngf")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa7nx"]
+atlas = ExtResource("1_wtngf")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dtwe5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvmxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epi51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0q5pu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oa7nx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="VentFan" type="AnimatedSprite2D"]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_dtwe5")
+frame = 1
+frame_progress = 0.0116056
+script = ExtResource("2_lmogg")

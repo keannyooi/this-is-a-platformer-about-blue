@@ -14,12 +14,15 @@ var platform_tween: Tween
 
 
 func _ready() -> void:
+	# set the sprite to its deactivated state
 	sprite.texture.region.position = Vector2.ZERO
 	
+	# move the platform back when the player respawns
 	Events.player_respawned.connect(move_back)
 	
 
 func move() -> void:
+	# set the sprite to its activated state
 	sprite.texture.region.position = Vector2(0, 16)
 	
 	var move_px: int = move_tiles * 16
@@ -42,9 +45,11 @@ func move() -> void:
 	
 
 func move_back() -> void:
+	# kill the tween before resetting position
 	if platform_tween and platform_tween.is_running():
-		await platform_tween.finished
+		platform_tween.kill()
 	
 	self.position = original_pos
+	# set the sprite to its deactivated state
 	sprite.texture.region.position = Vector2.ZERO
 	

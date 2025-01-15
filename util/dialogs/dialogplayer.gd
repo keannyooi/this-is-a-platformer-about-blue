@@ -25,6 +25,7 @@ func _ready() -> void:
 	
 	# it will only show itself when triggered
 	self.hide()
+	# dialogs_file.close()
 	
 
 func display_dialog(dialog: Array) -> void:

@@ -13,7 +13,7 @@ func _ready():
 	Events.player_respawned.connect(player_respawned)
 	
 
-func _on_body_entered(body: Player) -> void:
+func _on_body_entered(_body: Player) -> void:
 	sprite.play("pressed")
 	self.set_deferred("monitoring", false)
 	
